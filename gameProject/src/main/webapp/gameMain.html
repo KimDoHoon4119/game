@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>game</title>
+
+<style type="text/css">
+table, td, th {
+	margin: 10px;
+	border: 3px solid #BDBDBD;
+	border-collapse: collapse;
+	background-color: #F2F2F2;
+	font-size: 30px;
+	color: #111111;
+	table-layout: fixed;
+	width: 110px;
+	height: 100px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#title {
+	margin:10px;
+	margin-top:10px;
+	display: inline-block;
+	text-shadow: 2px 2px 2px #BDBDBD;
+}
+
+.easy, .normal, .hard {
+	border: 2px solid #BDBDBD;
+	border-collapse: collapse;
+	border-radius: 8px;
+	text-align: center;
+	width: 111px;
+	height: 35px;
+	font-size: 20px;
+	cursor: pointer
+}
+
+.easy {
+	margin:10px;
+	background-color: #ABF200;
+}
+
+.normal {
+	margin-left:-10px;
+	background-color: #FAED7D;
+}
+
+.hard {
+	background-color: #DF4D4D;
+}
+
+#life_box {
+	margin: 3px;
+	border: 2px solid #BDBDBD;
+	border-collapse: collapse;
+	background-color: #F2F2F2;
+	border-radius: 8px;
+	position: relative;
+	width: 80px;
+	height: 31px;
+	line-height: 31px;
+	font-size: 20px;
+	display: inline-block; /* inline은 위치조절이 안댐 */
+}
+
+#life {
+	display: inline
+}
+</style>
+
+<script type="text/javascript">
+	let mode = 0;
+	let dec_cnt = 1;
+	let life_cnt = 0;
+	
+	function shuffle(array) {
+	  array.sort(() => Math.random()-0.5);
+	  
+	}
+	
+	function check(clicked_id) {
+		life.innerHTML = life_cnt;
+		if (clicked_id == dec_cnt) {
+			document.getElementById(clicked_id).innerText = "";
+			document.getElementById(clicked_id).style.background = "white";
+			dec_cnt++
+			
+		} else if (clicked_id != dec_cnt) {
+			document.getElementById(dec_cnt).style.background = "skyblue";
+			life.innerHTML = --life_cnt;
+		} 
+		
+		if(life_cnt == 1) {
+			document.getElementById("life_box").style.background = "red";
+		} 
+		
+		if (mode==3 && dec_cnt==10) {
+			dec_cnt=1;
+			alert("축하합니다!!")
+			location.reload();
+		} else if (mode==4 && dec_cnt==17) {
+			dec_cnt=1;
+			alert("축하합니다!!")
+			location.reload();
+		} else if (mode==5 && dec_cnt==26) {
+			dec_cnt=1;
+			alert("축하합니다!!")
+			location.reload();
+		} else if (life_cnt == 0) {
+			alert("게임 종료 :(")
+			location.reload();
+		}
+	}
+	
+	function easy() {
+		mode = 3;
+		let cnt = 0;
+		dec_cnt = 1;
+		life_cnt = 5;
+		life.innerHTML = life_cnt;
+		document.getElementById("life_box").style.background = "#F2F2F2";
+		
+		let	arr = new Array(); 
+		for (i=1; i<=mode*3; i++) {
+			arr.push(i);
+		}
+		shuffle(arr);
+		let html = "<table>"
+		for (i = 0; i < arr.length; i++) {
+			html += "<td id="+arr[i]+" onClick=check(this.id)> " + arr[i] + "</td>"
+			cnt++;
+			if (cnt % 3 == 0) {
+				html += "<tr></tr>" // 행 넘기기
+			}
+		}
+		html += "</table>";
+		game.innerHTML = html;
+	}
+	
+	function normal() {
+		mode = 4;
+		let cnt = 0;
+		dec_cnt = 1;
+		life_cnt = 4;
+		life.innerHTML = life_cnt;
+		document.getElementById("life_box").style.background = "#F2F2F2";
+		
+		let	arr = new Array(); 
+		for (i=1; i<=mode*4; i++) {
+			arr.push(i);
+		}
+		shuffle(arr);
+		let html = "<table>"
+		for (i = 0; i < arr.length; i++) {
+			html += "<td id="+arr[i]+" onClick=check(this.id)> " + arr[i] + "</td>"
+			cnt++;
+			if (cnt % 4 == 0) {
+				html += "<tr></tr>" // 행 넘기기
+			}
+		}
+		html += "</table>";
+		game.innerHTML = html;
+	}
+	
+	function hard() {
+		mode = 5;
+		let cnt = 0;
+		dec_cnt = 1;
+		life_cnt = 3;
+		life.innerHTML = life_cnt;
+		document.getElementById("life_box").style.background = "#F2F2F2";
+		
+		let	arr = new Array(); 
+		for (i=1; i<=mode*5; i++) {
+			arr.push(i);
+		}
+		shuffle(arr);
+		let html = "<table>"
+		for (i = 0; i < arr.length; i++) {
+			html += "<td id="+arr[i]+" onClick=check(this.id)> " + arr[i] + "</td>"
+			cnt++;
+			if (cnt % 5 == 0) {
+				html += "<tr></tr>" // 행 넘기기
+			}
+		}
+		html += "</table>";
+		game.innerHTML = html;
+	}
+</script>
+</head>
+<body>
+	<h2 id="title">숫자 순서 맞추기 게임</h2>
+	<div id="life_box">&nbsp;Life : <div id="life"></div></div><br>
+	<input class="easy" type="button" value="Easy" onclick="easy();">
+	<input class="normal" type="button" value="Normal" onclick="normal();">
+	<input class="hard" type="button" value="Hard" onclick="hard();">
+	<div id="game"></div>
+</body>
+</html>
