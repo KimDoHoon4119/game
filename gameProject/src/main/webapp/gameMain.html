@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>game</title>
-
+   
 <style type="text/css">
 table, td, th {
 	margin: 10px;
@@ -187,12 +187,13 @@ table, td, th {
 		}
 		html += "</table>";
 		game.innerHTML = html;
-	}
+	} 
 </script>
 </head>
 <body>
-	<h2 id="title">숫자 순서 맞추기 게임</h2>
-	<div id="life_box">&nbsp;Life : <div id="life"></div></div><br>
+	<img src="WhatsNext.png" style="width:260px;">
+	<div id="life_box">&nbsp;Life : <div id="life"></div></div>
+	<br>
 	<input class="easy" type="button" value="Easy" onclick="easy();">
 	<input class="normal" type="button" value="Normal" onclick="normal();">
 	<input class="hard" type="button" value="Hard" onclick="hard();">
